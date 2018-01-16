@@ -54,7 +54,7 @@ To check the wallet status, you can take a look at the log file SpectreConf/debu
 tail -f SpectreConf/debug.log
 ```
 
-To check the staking status, see SpectreConf/staking.log. This file should update every one hour. If you see the staking status is false, try to check it one hour later.
+To check the staking status, see SpectreConf/staking.log. This file should be updated hourly. If you see the staking status is false, try to check it again one hour later.
 
 ### Shutdown
 
