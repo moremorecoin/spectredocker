@@ -67,4 +67,4 @@ sudo docker-compose down
 ### Donation
 
 As you can see there is a parameter for you to donate a portion of you staking incomes to the developer. By default, it is set to 0.1, which means you agree to donate 10% of you staking incomes to the developer. This feature could be turned off by setting Donate_portion_of_staking to 0. I appreciate for your generous donation. My Spectre stealth address
-is smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU, you can also donate to this wallet manually.
+is **smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU**, you can also donate to this wallet manually.
