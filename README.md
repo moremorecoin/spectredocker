@@ -17,7 +17,7 @@ git clone https://github.com/moremorecoin/spectredocker.git
 Last, run it by:
 
 ```
-cd deeponiondocker
+cd spectredocker
 sudo docker-compose up -d
 ```
 
