@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-$docmd="/bin/spectrecoindi -conf=/root/configure.conf";
+$docmd="/bin/spectrecoind -conf=/root/configure.conf";
 print "Enter The Password\n";
 system ( "stty -echo");
 my $password=<STDIN>;
