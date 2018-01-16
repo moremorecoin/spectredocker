@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ ! -z $PASS ]; then
+spectrecoind -conf=/root/configure.conf walletlock
+spectrecoind -conf=/root/configure.conf walletpassphrase $PASS 3610 true
+fi
+date >> /root/.spectrecoin/staking.log
+spectrecoind -conf=/root/configure.conf getstakinginfo >> /root/.spectrecoin/staking.log

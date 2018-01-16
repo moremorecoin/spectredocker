@@ -1,0 +1,10 @@
+version: '3'
+services:
+  XP:
+    restart: always
+    environment:
+     - PASS=
+     - Donate_portion_of_staking=0.1
+    volumes:
+     - ./SpectreConf:/root/.spectrecoin
+    image: morecoin/spectre

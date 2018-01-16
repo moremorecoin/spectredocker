@@ -1,0 +1,2 @@
+#!/bin/sh
+donate.pl $Donate_portion_of_staking $Donate_to $PASS
