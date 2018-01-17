@@ -21,6 +21,17 @@ cd spectredocker
 sudo docker-compose up -d
 ```
 
+> If you want to build the docker instance on your own, simply go to the image folder and run the build.sh like this:
+> ```
+> cd spectredocker/image
+> sudo sh build.sh
+> ```
+> After you got the docker built, go back to spectredocker folder to launch it:
+> ```
+> cd ..
+> sudo docker-compose up -d
+> ```
+
 After a few seconds, you should see there are wallet.dat file as well as other log files in SpectreConf folder, you can then copy your own wallet.dat file into SpectreConf folder to replace the auto-generated wallet.dat file. After Spectre wallet syncronized all the blocks, your staking will begin automatically.
 
 ### Encrypted wallet
