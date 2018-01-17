@@ -25,36 +25,37 @@ After a few seconds, you should see there are wallet.dat file as well as other l
 
 ### Encrypted wallet
 
-If your wallet is encrypted, before you run the docker by docker-compose command, you should modify the docker-compose.yml file by adding your wallet password to PASS variable.
-
-For example, if your password is 12345678, it should look like:
+If your wallet is encrypted, after you start the docker, you can run unlock_wallet_for_staking.pl to unlock your wallet for staking only:
 
 ```
-version: '3'
-services:
-  XP:
-    restart: always
-    environment:
-     - PASS=12345678
-     - Donate_portion_of_staking=0.1
-    volumes:
-     - ./SpectreConf:/root/.spectrecoin
-    image: morecoin/spectre
+perl unlock_wallet_for_staking.pl
 ```
 
-Note: if your password contains '$', please type '$$' instead. This is because '$' is a special character in docker compose file, you have to type '$$' to tell docker compose that this is a single '$'.
-
-The process to unlock wallet for staking will run every hour, in the worst case, your wallet will start staking 59 minutes after the docker instance started to run.
+You will be asked for password to unlock the wallet. After you type it in, the password will be passed to the docker instance to unlock the wallet. You don't have to write down your password into docker-compose.yml file anymore.
 
 ### Monitoring
 
-To check the wallet status, you can take a look at the log file SpectreConf/debug.log. To get the progressive output, run:
+To check the wallet status, you can take a look at the log file SpectreConf/status.log. To get the progressive output, run:
 
 ```
-tail -f SpectreConf/debug.log
+tail -f SpectreConf/statue.log
 ```
 
-To check the staking status, see SpectreConf/staking.log. This file should be updated hourly. If you see the staking status is false, try to check it again one hour later.
+This file is updated every 10 minutes. 
+
+If you want to use command line on your own -- to see your wallet address, send coin, check balance etc, you can attach to the docker instance this way:
+
+```
+sudo docker exec -it spectredocker_xspec_1 bash
+```
+
+To show some commands for use:
+
+```
+spectrecoind help
+```
+
+After you are done, type 'exit' to leave the console. 
 
 ### Shutdown
 
@@ -66,5 +67,5 @@ sudo docker-compose down
 
 ### Donation
 
-As you can see there is a parameter for you to donate a portion of you staking incomes to the developer. By default, it is set to 0.1, which means you agree to donate 10% of you staking incomes to the developer. This feature could be turned off by setting Donate_portion_of_staking to 0. I appreciate for your generous donation. My Spectre stealth address
-is **smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU**, you can also donate to this wallet manually.
+My Spectre stealth address
+is **smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU**, please donate to help on this work. 
