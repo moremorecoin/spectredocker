@@ -1,12 +1,8 @@
-FROM ubuntu:zesty-20171122
+FROM ubuntu:xenial-20180112.1
 MAINTAINER MoreCoin <moremorecoin@gmail.com>
 COPY source/install.sh /root
 COPY source/configure.conf /root
-COPY source/staking.pl /bin
-COPY source/donate.pl /bin
-COPY source/stakingunlock /etc/cron.hourly/stakingunlock
-COPY source/dailycheck /etc/cron.daily/dailycheck
-ENV Donate_to smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU
-ENV Donate_portion_of_staking 0.1
+COPY source/status_report.pl /bin
+COPY source/keeper.pl /bin
 RUN bash /root/install.sh
-ENTRYPOINT ["spectrecoind","-conf=/root/configure.conf"]
+ENTRYPOINT ["keeper.pl"]

@@ -1,10 +1,9 @@
 version: '3'
 services:
-  XP:
+  xspec:
     restart: always
-    environment:
-     - PASS=
-     - Donate_portion_of_staking=0.1
+    ports:
+    - 9999:9999
     volumes:
      - ./SpectreConf:/root/.spectrecoin
-    image: morecoin/spectre
+    image: morecoin/spectre:1.0
