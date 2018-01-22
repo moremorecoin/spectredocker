@@ -37,7 +37,7 @@ while(1)
             my @col = split(", ",$review);
             for(my $i=0;$i<@col-1;++$i)
             {
-                if($col[$i] eq 'generate')
+                if($col[$i] eq $ENV{STAKING_TAG})
                 {
                     $col[$i+1]=~/(\d+)\]/;
                     $total_staking += $1;
