@@ -51,7 +51,7 @@ You will be asked for password to unlock the wallet. After you type it in, the p
 To check the wallet status, you can take a look at the log file SpectreConf/status.log. To get the progressive output, run:
 
 ```
-tail -f SpectreConf/statue.log
+tail -f SpectreConf/status.log
 ```
 
 This file is updated every 10 minutes. 
@@ -122,7 +122,7 @@ perl unlock_wallet_for_staking.pl
 ```
 7. Check the status.log for a few minutes to make sure the staking is started:
 ```
-$ tail -f SpectreConf/statue.log
+$ tail -f SpectreConf/status.log
 Wallet starting up ...
 Please use unlock_wallet_for_staking.pl to unlock wallet
 Password received, trying to unlock wallet for staking
