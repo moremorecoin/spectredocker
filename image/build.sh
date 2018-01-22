@@ -1,1 +1,1 @@
-docker build -t morecoin/spectre:1.0 .
+docker build -t morecoin/spectre:2.0 .

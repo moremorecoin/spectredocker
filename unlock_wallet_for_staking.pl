@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+use strict;
 use IO::Socket::INET;
 
 # auto-flush on socket
@@ -26,12 +27,17 @@ shutdown($socket, 1);
 # receive a response of up to 1024 characters from server
 my $response = "";
 $socket->recv($response, 1024);
-if( $response==0)
+if($response==0)
 {
-        print "Wallet unlocked successfully, please check status.log for wallet status\n";
+    print "Wallet unlocked successfully, please check status.log for wallet status\n";
+}
+elsif($response==8)
+{
+    print "Your wallet is unencrypted, you don't have to input password.\n";
 }
 else
 {
-        print "Failed to unlock wallet, please try again\n";
+    print "Failed to unlock wallet, please try it again. ";
+    print "Error code: $response\n";
 }
 $socket->close();
