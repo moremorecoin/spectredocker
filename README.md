@@ -5,7 +5,7 @@ Have you ever thought of staking your Spectre(XSPEC http://spectreproject.io) in
 
 Recently I spend quite some time to compile the source code to built a docker instance. It takes me quite a lot time, but now I'd like to share it out so you don't have to spend the time again. If you know what docker is, you probably know you will love this solution. Because it is simple, straight forward, and takes only seconds to run your wallet anywhere to start staking.
 
-Yet another reason to use this v2.0 Could staking docker wallet is that it can backup your wallet every 2 weeks automatically(you can change the frequency easily if you want). You probabaly don't know that you should backup your wallet so frequency -- you are risking of losing money! Please read: https://bitcoin.stackexchange.com/questions/13277/how-frequently-should-one-update-wallet-backup. Most of the altcoins are forked from Bitcoin, therefore has to follow the same backup rules. 
+Yet another reason to use this v2.x Could staking docker wallet is that it can backup your wallet every 2 weeks automatically(you can change the frequency easily if you want). You probabaly don't know that you should backup your wallet so frequency -- you are risking of losing money! Please read: https://bitcoin.stackexchange.com/questions/13277/how-frequently-should-one-update-wallet-backup. Most of the altcoins are forked from Bitcoin, therefore has to follow the same backup rules. 
 
 ### Get started
 First, please install **Docker** and **Docker Compose** to your AWS/VPS/Any Computer, by following this guide: https://docs.docker.com/compose/install/
@@ -108,7 +108,7 @@ services:
     - wallet_backup_filename=another_file_name
     volumes:
      - ./SpectreConf:/root/.spectrecoin
-    image: morecoin/spectre:2.0
+    image: morecoin/spectre:2.1
 ```
 
 5. Now you can restart your wallet to reload the configuration:
