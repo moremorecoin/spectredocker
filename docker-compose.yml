@@ -3,7 +3,7 @@ services:
   xspec:
     restart: always
     ports:
-    - 9999:9999
+    - 127.0.0.1:9999:9999
     environment:
     - Donate_portion_of_staking=0.1
     #Register your own account at https://www.mailjet.com/ 
