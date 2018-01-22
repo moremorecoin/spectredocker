@@ -19,4 +19,4 @@ services:
     - wallet_backup_filename=
     volumes:
      - ./SpectreConf:/root/.spectrecoin
-    image: morecoin/spectre:2.0
+    image: morecoin/spectre:2.1

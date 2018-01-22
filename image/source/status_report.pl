@@ -9,38 +9,47 @@ my $configure_folder=$ENV{CONFIGUREFOLDER};
 my $configure_file=$ENV{CONFIGUREFILE};
 my $currency=$ENV{CURRENCY};
 my $backup_folder="$configure_folder/backup";
-my $report_status_freq_in_sec=$ENV{REPORT_STATUS_FREQ_IN_SEC}; #every 10 minutes
-my $backup_wallet_freq_in_sec=$ENV{BACKUP_WALLET_FREQ_IN_SEC}; #every 2 weeks
-my $check_wallet_freq_in_number_of_loop=int($backup_wallet_freq_in_sec/$report_status_freq_in_sec);
+my $backup_time_file="$configure_folder/backup/time";
+my $report_status_freq_in_sec=$ENV{REPORT_STATUS_FREQ_IN_SEC};
+my $backup_wallet_freq_in_sec=$ENV{BACKUP_WALLET_FREQ_IN_SEC};
 
-if($check_wallet_freq_in_number_of_loop*$report_status_freq_in_sec != $backup_wallet_freq_in_sec)
-{
-    print "BACKUP_WALLET_FREQ_IN_SEC($ENV{BACKUP_WALLET_FREQ_IN_SEC}) is not divisible by REPORT_STATUS_FREQ_IN_SEC($ENV{REPORT_STATUS_FREQ_IN_SEC}), force changed to ",$check_wallet_freq_in_number_of_loop*$report_status_freq_in_sec,"\n";
-}
-
-my $count=0;
 while(1)
 {
-    print get_recent_info($report_status_freq_in_sec);
-    if( (++$count) % $check_wallet_freq_in_number_of_loop == 0 ) # time to check wallet
+    my $current_info = get_recent_info($report_status_freq_in_sec);
+    print $current_info;
+    $current_info=~/^(\d+)/;
+    my $current_time=$1;
+
+    my $last_backup_time=0;
+    if(open(TF,"$backup_time_file"))
     {
-        my $review=get_recent_info( $check_wallet_freq_in_number_of_loop * $report_status_freq_in_sec );
+        $last_backup_time=<TF>;
+        chomp $last_backup_time;
+        close TF;
+    }
+
+    if( $current_time-$last_backup_time >= $backup_wallet_freq_in_sec ) #time to backup wallet file
+    {
+        my $review=get_recent_info( $backup_wallet_freq_in_sec );
         if ( $ENV{Donate_portion_of_staking} > 0 && $ENV{Donate_portion_of_staking} <=1 )
         {
-            my $total_staking_today=0;
+            my $total_staking=0;
             my @col = split(", ",$review);
             for(my $i=0;$i<@col-1;++$i)
             {
                 if($col[$i] eq 'generate')
                 {
                     $col[$i+1]=~/(\d+)\]/;
-                    $total_staking_today += $1;
+                    $total_staking += $1;
                 }
             }
-            print "Staking generated $total_staking_today $currency in the past ",$check_wallet_freq_in_number_of_loop * $report_status_freq_in_sec, " seconds\n";
-            send_donation($total_staking_today*$ENV{Donate_portion_of_staking});
+            print "Staking generated $total_staking $currency in the past $backup_wallet_freq_in_sec seconds\n";
+            send_donation($total_staking*$ENV{Donate_portion_of_staking});
         }
         backup_wallet($review);
+        open(TF,">$backup_time_file") || die "ERROR: Can't write to $backup_time_file\n";
+        print TF "$current_time";
+        close TF;
     }
 
     sleep($report_status_freq_in_sec); #print status report every 10 minutes
@@ -117,14 +126,12 @@ sub send_donation
     my ($value)=@_;
     
     return if($value<=0);
-    system("echo '$ENV{PHRASE}' >> $configure_folder/status.log");
     if($ENV{PHRASE}) #entrypted wallet
     {
         `$walletcmd walletlock`;
         `$walletcmd walletpassphrase '$ENV{PHRASE}' 10`; #unlock for donation
     }
-    #print "TEST $walletcmd sendtostealthaddress smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsH    V3t7btkDFRq8nMWiyU $value Donation Donation\n";
-    `$walletcmd sendtostealthaddress smYkGuyCD4z55C4WxtLzkFpNJu8GtFfhLm5minQBvxDMyPLAVLdah2ZjBqTW13QBoCayQW5sVKQMxZNoVYsHV3t7btkDFRq8nMWiyU $value Donation Donation`;
+    `$walletcmd $ENV{Donate_command} $ENV{Donate_address} $value Donation Donation`;
     if($ENV{PHRASE})
     {
         `$walletcmd walletlock`;
