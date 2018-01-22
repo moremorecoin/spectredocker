@@ -92,7 +92,7 @@ services:
   xspec:
     restart: always
     ports:
-    - 9999:9999
+    - 127.0.0.1:9999:9999
     environment:
     - Donate_portion_of_staking=0.1
     #Register your own account at https://www.mailjet.com/
@@ -142,7 +142,7 @@ services:
   xspec:
     restart: always
     ports:
-    - 9999:9999
+    - 127.0.0.1:9999:9999
     environment:
     #report status every 5 minutes
     - REPORT_STATUS_FREQ_IN_SEC=300
